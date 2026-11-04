@@ -4,13 +4,12 @@ import { useEffect, useState } from 'react';
 import type { ProductCardResult, ProductCardVariation } from '@/lib/product-card';
 import Icon from './Icon';
 
-export default function ProductCard() {
+export function useProductCard() {
   const [variation, setVariation] = useState('master');
   const [variations, setVariations] = useState<ProductCardVariation[]>([]);
   const [result, setResult] = useState<ProductCardResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [imageError, setImageError] = useState(false);
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
@@ -18,7 +17,6 @@ export default function ProductCard() {
     setLoading(true);
     setError(null);
     setResult(null);
-    setImageError(false);
     async function load() {
       try {
         const response = await fetch(`/api/product-card?variation=${encodeURIComponent(variation)}`, { signal: controller.signal, cache: 'no-store' });
@@ -39,13 +37,30 @@ export default function ProductCard() {
     return () => controller.abort();
   }, [variation, attempt]);
 
-  return <section className="product-card surface" aria-label="Barclays product content fragment" aria-busy={loading}>
+  return { variation, setVariation, variations, result, loading, error, retry: () => setAttempt(attempt + 1) };
+}
+
+type ProductCardState = ReturnType<typeof useProductCard>;
+
+export function ProductVariationSelector({ state }: { state: ProductCardState }) {
+  const { variation, setVariation, variations, error } = state;
+  return <section className="product-variation-control" aria-label="Content fragment options">
     <div className="product-variation-heading"><label htmlFor="product-variation">Content fragment variation</label><span>{variations.length ? `${variations.length} in AEM` : 'Live AEM content'}</span></div>
-    <select id="product-variation" value={variation} onChange={event => setVariation(event.target.value)} disabled={!variations.length}>
+    <select id="product-variation" value={variation} aria-describedby="product-variation-help" onChange={event => setVariation(event.target.value)} disabled={!variations.length}>
       {variations.length ? variations.map(option => <option key={option.name} value={option.name}>{option.title}{option.name === 'master' ? ' · Master' : ''}</option>) : <option value="master">{error ? 'Variations unavailable' : 'Loading authored variations…'}</option>}
     </select>
+    <p id="product-variation-help">Updates the product card on Home inside the app.</p>
+  </section>;
+}
+
+export default function ProductCard({ state }: { state: ProductCardState }) {
+  const { result, loading, error, retry } = state;
+  const [imageError, setImageError] = useState(false);
+  useEffect(() => { setImageError(false); }, [result?.card.imageUrl]);
+
+  return <section className="product-card surface" aria-label="Barclays product content fragment" aria-busy={loading}>
     {loading && <p className="product-loading" role="status">Loading published Barclays content…</p>}
-    {error && <div className="product-error" role="alert"><h2>Barclays content is unavailable</h2><p>{error}</p><p>No sample or unrelated content has been substituted.</p><button className="primary-button" onClick={() => setAttempt(attempt + 1)}>Retry content <Icon name="arrow" /></button></div>}
+    {error && <div className="product-error" role="alert"><h2>Barclays content is unavailable</h2><p>{error}</p><p>No sample or unrelated content has been substituted.</p><button className="primary-button" onClick={retry}>Retry content <Icon name="arrow" /></button></div>}
     {result && <div className="product-content" aria-live="polite">
       {result.card.imageUrl && !imageError && <img src={result.card.imageUrl} alt="" loading="lazy" onError={() => setImageError(true)} />}
       {imageError && <p className="product-image-error" role="status">The authored product image could not be loaded.</p>}

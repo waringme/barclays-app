@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import Brand from './Brand';
 import Icon, { type IconName } from './Icon';
 import BrandConcierge from './BrandConcierge';
-import ProductCard from './ProductCard';
+import ProductCard, { ProductVariationSelector, useProductCard } from './ProductCard';
 import type { BrandConciergeConfig } from '@/lib/brand-concierge';
 
 type View = 'Home' | 'Accounts' | 'Cards' | 'Help' | 'Concierge';
@@ -90,6 +90,7 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
   const [panel, setPanel] = useState<Panel | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const workspaceRef = useRef<HTMLDivElement>(null);
+  const productCard = useProductCard();
   function navigate(next: View) {
     setView(next);
     requestAnimationFrame(() => { headingRef.current?.focus({ preventScroll: true }); workspaceRef.current?.scrollTo({ top: 0 }); });
@@ -98,6 +99,7 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
   return (
     <div className="bank-demo-stage">
       <p className="demo-site-warning">this is a demo site</p>
+      <ProductVariationSelector state={productCard} />
       <div className="bank-app">
       <a href="#bank-content" className="skip-link">Skip to content</a>
       <div className="bank-workspace" ref={workspaceRef}>
@@ -110,6 +112,8 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
           <div className="greeting-row"><div><p className="greeting-kicker"><Icon name="sun" />YOUR MONEY. YOUR POSSIBILITIES.</p><h1 ref={headingRef} tabIndex={-1}>{view === 'Home' ? 'Hello, Alex' : view === 'Accounts' ? 'Your accounts' : view === 'Cards' ? 'Your cards' : view === 'Concierge' ? 'Brand Concierge' : 'Here to help'}</h1><p className="greeting-subtitle">{view === 'Home' ? 'Let’s make your everyday a little easier.' : view === 'Accounts' ? 'Everything in one place. All figures are demo data.' : view === 'Cards' ? 'A little more control, right at your fingertips.' : view === 'Concierge' ? 'Your Barclays product questions, powered by Adobe.' : 'Find a helpful answer, your way.'}</p></div>{(view === 'Home' || view === 'Accounts') && <button className="balance-toggle" onClick={() => setHidden(!hidden)} aria-pressed={hidden}><Icon name="eye" />{hidden ? 'Show balances' : 'Hide balances'}</button>}</div>
 
           {view === 'Home' && <button className="concierge-entry" onClick={() => navigate('Concierge')}><span className="round-icon sky"><Icon name="spark" /></span><span><strong>Ask Brand Concierge</strong><small>Explore Barclays products with Adobe AI</small></span><Icon name="chevron" /></button>}
+
+          {view === 'Home' && <ProductCard state={productCard} />}
 
           {(view === 'Home' || view === 'Accounts') && <>
             <div className="section-heading"><h2>Your accounts</h2><span className="subtle-label">3 demo accounts</span></div>
@@ -126,7 +130,6 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
           {view === 'Home' && <div className="dashboard-columns">
             <div className="dashboard-primary">
               <section className="surface activity-surface"><div className="section-heading"><div><h2>A little in. A little out.</h2><p>Your recent demo activity</p></div><button className="text-button" onClick={() => setPanel('activity')}>View all <Icon name="arrow" /></button></div><TransactionList limit={4} hidden={hidden} /><div className="activity-footnote"><span className="status-dot" />Sample activity · not connected to a bank</div></section>
-              <ProductCard />
             </div>
             <div className="dashboard-secondary">
               <section className="concierge-card"><span className="concierge-kicker"><Icon name="spark" />A LITTLE GUIDANCE GOES A LONG WAY</span><h2>Your questions.<br />A helpful place to start.</h2><p>Explore Barclays products with Brand Concierge, powered by Adobe.</p><button onClick={() => navigate('Concierge')} className="primary-button">Meet Brand Concierge <Icon name="arrow" /></button><span className="concierge-note">AI-powered · General product questions only</span></section>
