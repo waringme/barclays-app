@@ -59,6 +59,9 @@ configuration and exported `style-config.json`. The adapter is in
 `public/concierge/agent.js`; the full exported styling configuration is
 preserved in `public/concierge/style-config.json`, with demo-safe privacy and
 disclaimer text, Barclays-blue accents and human-agent handoff disabled.
+The SDK's supported mobile theme enables suggestion pills and disables the
+welcome-card carousel. Adobe's container-width breakpoints select the mobile
+variant inside the phone-sized iframe even when the outer browser is desktop.
 Official eagle and wordmark assets from the user-supplied branding reference
 are stored in `public/brand/`. The agent receives the eagle as inline SVG,
 as required by its configuration.

@@ -195,8 +195,8 @@
     "sendIconBackgroundColor": "#0076b6"
   },
   "theme": {
-    "--cards-mobile-carousel-display": "block",
-    "--cards-mobile-pills-display": "none",
+    "--cards-mobile-carousel-display": "none",
+    "--cards-mobile-pills-display": "flex",
     "--welcome-input-order": "3",
     "--welcome-cards-order": "2",
     "--welcome-heading-size-desktop": "2rem",

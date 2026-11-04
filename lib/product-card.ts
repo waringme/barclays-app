@@ -109,7 +109,9 @@ export async function fetchProductCard(variation = 'master'): Promise<ProductCar
   const variations = await fetchProductVariations();
   if (!variations.some(option => option.name === selected)) throw new Error(`Unknown Barclays product-card variation "${selected}".`);
   const { origin, path } = source();
-  const url = `${origin}/graphql/execute.json/barclays-xwalk/get-barclays-product-card-by-path;path=${encodeURIComponent(path)};variation=${encodeURIComponent(selected)}`;
+  // AEM's matrix parameter expects literal path separators, not encoded slashes.
+  const fragmentPath = encodeURIComponent(path).replace(/%2F/g, '/');
+  const url = `${origin}/graphql/execute.json/barclays-xwalk/get-barclays-product-card-by-path;path=${fragmentPath};variation=${encodeURIComponent(selected)}`;
   const item = fragmentItem(await requestJson(url));
   if (typeof item.title !== 'string' || typeof item.ctaLabel !== 'string' || typeof item.ctaLink !== 'string' || !item.ctaLink.trim()) {
     throw new Error('The Barclays product card is missing its title or call to action.');
