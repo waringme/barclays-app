@@ -1,4 +1,73 @@
-# cf-example
+# Barclays banking demo
+
+A responsive, independent **Barclays-branded banking demo**, using
+[barclays.co.uk](https://www.barclays.co.uk/) as the visual reference. The main
+experience uses fictional local data, not live accounts. No login, real
+payments, card operations or banking connection are provided.
+
+The original AEM content-fragment consumer is preserved at **`/fragments`**,
+with its existing API routes, fetcher, variations and offline snapshot.
+The banking home deliberately does not fetch M&G content. Its promotional
+content is marked **“Demo content · AEM content to come”** so Barclays fragments
+can be added later without requiring a live AEM instance now.
+
+## Banking interactions
+
+- Home and Accounts show three fictional accounts; balances can be hidden.
+- Pay someone and Move money open validated, review-only demo flows. They
+  never submit a payment or change an account balance.
+- Activity can be searched by merchant or category.
+- Cards lets you freeze/unfreeze a fictional card, in page memory only.
+- Savings goals, spending breakdowns, notifications and Help provide useful
+  illustrative detail. Reloading resets all demo state.
+- On smaller screens the layout becomes a mobile banking experience with a
+  fixed bottom navigation, rather than a fixed-size phone frame.
+
+## Brand Concierge
+
+The real Adobe integration is adapted from
+[`waringme/barclays-xwalk/blocks/brand-concierge`](https://github.com/waringme/barclays-xwalk/tree/main/blocks/brand-concierge),
+including its README, JavaScript bootstrap sequence, CSS, Universal Editor
+configuration and exported `style-config.json`. The adapter is in
+`public/concierge/agent.js`; the full exported styling configuration is
+preserved in `public/concierge/style-config.json`, with demo-safe privacy and
+disclaimer text, Barclays-blue accents and human-agent handoff disabled.
+Official eagle and wordmark assets from the user-supplied branding reference
+are stored in `public/brand/`. The agent receives the eagle as inline SVG,
+as required by its configuration.
+
+Open **`/brand-concierge`** from the app. **No Adobe SDK scripts or requests
+load until the visitor chooses “Agree and open concierge”.** Continuing loads
+the upstream Web SDK (Alloy 2.35.1) and Adobe web agent in an isolated iframe.
+Closing or leaving the page removes that iframe; reopening starts a fresh SDK
+lifecycle. Data already sent is not erased by closing.
+
+This is **not a simulated chatbot**. Network/bootstrap errors are visible,
+initial loading times out after 30 seconds, and conversation errors are
+rendered by Adobe's own agent. A loaded chat UI alone does not establish that
+the conversation backend works. Never enter real financial or personal data.
+
+The upstream public identifiers are used by default. To override them, copy
+`.env.example` to `.env.local`, then restart the app (redeploy in production):
+
+```dotenv
+BRAND_CONCIERGE_DATASTREAM_ID=your-datastream-id
+BRAND_CONCIERGE_ORG_ID=your-org-id@AdobeOrg
+BRAND_CONCIERGE_REGION=nld2
+```
+
+These are public browser configuration, not API keys. The Adobe datastream
+must enable **Brand Concierge**, have a **published concierge** attached and
+allow **every domain used to access the demo**, including the exact localhost
+or preview domain. The upstream README documents `Datastream config not found`
+and `Concierge not found` responses when Adobe-side setup is incomplete.
+The page exposes connection details and a reload control for troubleshooting.
+Outbound service hosts are `cdn1.adoberesources.net`, `experience.adobe.net`
+and `edge.adobedc.net`; Adobe's agent may load further service assets.
+Use your deployment's approved consent and privacy policy before public use;
+the explicit demo consent gate is not a production compliance implementation.
+
+## Content-fragment integration
 
 A minimal **Next.js** web app that consumes an **AEM CTA content fragment** and
 renders it — demonstrating how a content fragment authored once in Adobe
@@ -32,17 +101,18 @@ The page lets you point at any AEM publish origin + content fragment path, fetch
 it, and see both the **rendered CTA banner** and the **exact request** that was
 made.
 
-## Two pages
+## Routes
 
 | Route     | What it is                                                                  |
 | --------- | --------------------------------------------------------------------------- |
-| `/`       | Developer test page — enter any origin / path / variation and inspect the request. |
-| `/advice` | A pretend **M&G Wealth** financial-advice mobile app (purple brand). The feed contains a sponsored promo pulled live from a CTA content fragment — text with the image below, sized for a phone. A **dropdown at the top switches variation** between the real M&G promotion fragments. |
+| `/`       | Responsive Barclays banking demo with fictional local data. |
+| `/brand-concierge` | Consent-gated Adobe Brand Concierge, using the requested integration. |
+| `/fragments` | Preserved developer test page — enter an origin / path / variation and inspect the request. |
+| `/advice` | Redirects to `/` for compatibility with the previous demo URL. |
 
-Defaults point at the M&G reference AEM instance
+Content-fragment developer-tool defaults still point at the M&G reference AEM instance
 (`https://publish-p147324-e2050468.adobeaemcloud.com`,
-`/content/dam/mandg/en/fragments/promotions/cf-1`), so both pages fetch live
-content out of the box.
+`/content/dam/mandg/en/fragments/promotions/cf-1`), for legacy integration testing. The banking home does not use these defaults.
 
 ## Running locally
 
@@ -54,7 +124,7 @@ npm run dev
 
 Open http://localhost:3000.
 
-Out of the box the app fetches the live `cf-1` fragment from the M&G reference
+The developer tools can fetch the live `cf-1` fragment from the M&G reference
 instance. If that instance is hibernating (see below), or if you clear
 `AEM_PUBLISH_ORIGIN`, the app serves a bundled snapshot so it still renders.
 
@@ -96,10 +166,9 @@ The result carries a `mockReason` field so the UI can be honest about it:
 | `aem-unavailable`  | AEM was configured but unreachable → repo `cf-1` snapshot served. |
 | `no-origin`        | No `AEM_PUBLISH_ORIGIN` configured → sample/mock data served.     |
 
-- The developer page (`/`) shows a notice: _"AEM is unreachable (likely
+- The developer page (`/fragments`) shows a notice: _"AEM is unreachable (likely
   hibernating) — showing the repo's offline `cf-1` snapshot…"_.
-- The mobile promo (`/advice`) appends **"· offline snapshot"** to its
-  _Sponsored · Content Fragment_ tag.
+- The banking demo never automatically displays this legacy snapshot.
 
 ### What the snapshot contains
 
@@ -210,7 +279,7 @@ DEFAULT_CF_VARIATION=master
 
 ### Changing the endpoint at runtime (no restart)
 
-The developer page (`/`) lets you override the **publish origin**, **content
+The developer page (`/fragments`) lets you override the **publish origin**, **content
 fragment path**, **variation**, and **persisted query** directly in the form and
 fetch immediately — handy for testing another instance without editing env vars.
 Env vars set the defaults the form starts from.
@@ -286,22 +355,30 @@ Notes:
 
 ```
 app/
-  page.tsx                 Landing / developer test page
-  advice/page.tsx          M&G Wealth mobile-app demo page
+  page.tsx                 Barclays banking demo
+  fragments/page.tsx       Preserved content-fragment developer tools
+  brand-concierge/page.tsx Consent-gated Adobe concierge
+  advice/page.tsx          Redirect to the banking demo
   layout.tsx               Root layout
-  globals.css              Styles (CTA banner mirrors the EDS block)
+  globals.css              Legacy content-fragment consumer styles
+  banking.css              Responsive Barclays banking and concierge styles
   api/
     cta/route.ts           Server route: fetch a CTA fragment (proxies wrapper)
     variations/route.ts    Server route: list a fragment's variations
   components/
     CtaConsumer.tsx        Developer UI: form + fetch + "how it works" panel
     CtaBanner.tsx          Renders the CTA fragment as a banner
-    MobileApp.tsx          Phone mock-up that embeds the promo fragment
+    MobileApp.tsx          Responsive demo banking screens and local interactions
+    BrandConcierge.tsx     Consent gate and isolated agent iframe
+    Brand.tsx             Barclays eagle and wordmark
+    Icon.tsx              Shared interface icons
 lib/
   cta.ts                   Core fetch logic + timeout + AEM-unavailable fallback
   mock.ts                  Offline snapshot loader
   mock/cf-1.json           cf-1 snapshot (master + variations)
 public/
+  brand/*.svg              Barclays reference eagle and wordmark
+  concierge/               Adapted SDK loader, markup, CSS and exported style config
   mock/*.png               Snapshot banner images
 ```
 

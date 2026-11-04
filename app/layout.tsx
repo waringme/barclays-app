@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './banking.css';
 
 export const metadata: Metadata = {
-  title: 'CTA Content Fragment — third-party consumer demo',
+  title: 'Barclays | Your everyday, made easier — demo',
   description:
-    'A Next.js app demonstrating how an AEM CTA content fragment can be consumed by a third-party web app.',
+    'An independent Barclays-branded mobile banking demo. All balances and activity are fictional. No real banking services.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <body>{children}</body>
     </html>
   );

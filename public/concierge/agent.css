@@ -1,0 +1,7 @@
+/* Adapted from barclays-xwalk/blocks/brand-concierge/brand-concierge.css. */
+* { box-sizing: border-box; }
+body { margin: 0; color: #15384b; background: #fff; font-family: Arial, sans-serif; }
+.brand-concierge { min-height: 480px; }
+.brand-concierge-status { margin: 0; padding: 48px 24px; color: #526f80; text-align: center; font-size: 14px; line-height: 1.8; }
+.brand-concierge-status[data-error] { margin: 24px; border: 1px solid #eac1c1; background: #fff7f7; color: #873e3e; border-radius: 10px; }
+.brand-concierge .bc-card__image { background-size: contain !important; background-repeat: no-repeat !important; }

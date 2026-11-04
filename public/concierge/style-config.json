@@ -1,0 +1,305 @@
+{
+  "id": "1810a76a-d130-47ca-9a7a-69690f3ba42c",
+  "name": "BARCLAYS_26-10-27_1810a76a-d130-47ca-9a7a-69690f3ba42c",
+  "metadata": {
+    "brandName": "BARCLAYS",
+    "version": "1.0.0",
+    "language": "en",
+    "namespace": "brand-concierge"
+  },
+  "behavior": {
+    "multimodalCarousel": {
+      "cardClickAction": "openLink"
+    },
+    "input": {
+      "enableVoiceInput": false,
+      "continuousVoiceMode": false,
+      "disableMultiline": true,
+      "showAiChatIcon": {
+        "icon": ""
+      }
+    },
+    "chat": {
+      "messageAlignment": "normal",
+      "messageWidth": "100%"
+    },
+    "privacyNotice": {
+      "title": "Privacy Notice",
+      "text": "This independent demo connects to Adobe Brand Concierge. Adobe services process connection data and the messages you send. Use fictional examples and general product questions only. Do not provide names, contact details, account or card numbers, PINs, passcodes or other sensitive information. This is not a real banking service.",
+      "links": []
+    },
+    "meetingForm": {
+      "fieldsPerRow": 2,
+      "fieldLayoutRules": {
+        "textInputs": {
+          "allowTwoColumns": true,
+          "fieldTypes": [
+            "string",
+            "email",
+            "tel",
+            "number"
+          ],
+          "identifyBy": null
+        },
+        "dropdowns": {
+          "allowTwoColumns": false,
+          "fieldTypes": [
+            "select"
+          ],
+          "identifyBy": "hasOptions"
+        },
+        "checkboxes": {
+          "allowTwoColumns": false,
+          "fieldTypes": [
+            "boolean",
+            "checkbox"
+          ],
+          "identifyBy": null
+        }
+      },
+      "title": {
+        "text": "Schedule a Meeting",
+        "alignment": "left"
+      },
+      "subtitle": {
+        "text": "Let’s discuss how we can assist you.",
+        "alignment": "left"
+      },
+      "buttons": {
+        "submit": {
+          "text": "Book Now",
+          "alignment": "left"
+        },
+        "cancel": {
+          "text": "Cancel",
+          "alignment": "left"
+        }
+      }
+    },
+    "calendarWidget": {
+      "title": {
+        "text": "Pick a Date and Time",
+        "alignment": "left"
+      },
+      "subtitle": {
+        "text": "Choose a convenient time for your meeting.",
+        "alignment": "left"
+      },
+      "postTitle": {
+        "text": "Once confirmed, you will receive a calendar invite with all the details. The specialist will already have this conversation context, so no need to repeat anything. Looking forward to connecting you with the right expert!",
+        "alignment": "left"
+      },
+      "buttons": {
+        "confirm": {
+          "text": "Confirm",
+          "alignment": "left"
+        },
+        "cancel": {
+          "text": "Cancel",
+          "alignment": "left"
+        }
+      }
+    },
+    "productCard": {
+      "actionButtonSize": "S"
+    },
+    "b2bLiveChat": {
+      "enabled": false
+    }
+  },
+  "disclaimer": {
+    "text": "Independent demo. AI answers may be incorrect. No account access, transactions or financial advice. Verify product information on the official Barclays website.",
+    "links": []
+  },
+  "text": {
+    "welcome.heading": "A little help from Brand Concierge",
+    "welcome.subheading": "Explore Barclays products. Please do not share personal banking details.",
+    "input.placeholder": "Ask about mortgages, savings, or investments",
+    "input.messageInput.aria": "Type your message here",
+    "input.send.aria": "Send your message",
+    "input.aiChatIcon.tooltip": "Chat with us",
+    "input.mic.aria": "Use voice input",
+    "card.aria.select": "Select this option",
+    "carousel.prev.aria": "Previous",
+    "carousel.next.aria": "Next",
+    "scroll.bottom.aria": "Scroll to bottom",
+    "error.network": "Something went wrong. Please try again.",
+    "loading.message": "Generating a response...",
+    "feedback.dialog.title.positive": "Positive Feedback",
+    "feedback.dialog.title.negative": "Negative Feedback",
+    "feedback.dialog.question.positive": "What did you like about your experience?",
+    "feedback.dialog.question.negative": "What could we improve?",
+    "feedback.dialog.notes": "Additional comments",
+    "feedback.dialog.submit": "Submit",
+    "feedback.dialog.cancel": "Cancel",
+    "feedback.dialog.notes.placeholder": "Type your comments here",
+    "feedback.toast.success": "Thank you for your feedback!",
+    "feedback.thumbsUp.aria": "Thumbs up",
+    "feedback.thumbsDown.aria": "Thumbs down",
+    "feedback.title": "Share your feedback",
+    "feedback.positive.title": "What did you like?",
+    "feedback.negative.title": "What could we improve?",
+    "feedback.submitButton": "Submit Feedback",
+    "feedback.positive.options": "",
+    "feedback.negative.options": ""
+  },
+  "arrays": {
+    "welcome.examples": [
+      {
+        "text": "Learn about mortgages",
+        "systemPrompt": "Tell me about mortgage options at Barclays.",
+        "backgroundColor": "#001276",
+        "image": "https://www.barclays.co.uk/adobe/assets/urn:aaid:aem:e0d6db50-567d-4c12-acbd-7f3a957e41d8/as/BAR-APP-002b.png?width=1440&preferwebp=true"
+      },
+      {
+        "text": "Explore savings accounts",
+        "systemPrompt": "What savings accounts do you offer?",
+        "backgroundColor": "#26368b",
+        "image": "https://www.barclays.co.uk/adobe/assets/urn:aaid:aem:ddc17cd5-cf6e-44bd-b060-be9fd8714a4a/as/GettyImages-585193333.jpg?width=1440&preferwebp=true&smartcrop=1-1"
+      },
+      {
+        "text": "Switch to Barclays",
+        "systemPrompt": "How can I switch my account to Barclays?",
+        "backgroundColor": "#4d599f",
+        "image": "https://www.barclays.co.uk/adobe/assets/urn:aaid:aem:40ec4de3-1119-4c5c-9030-8c5c28f30e45/as/up_to_sixhundred_fourxthree_d.png?width=1440&preferwebp=true&smartcrop=1-1"
+      },
+      {
+        "text": "Manage investments",
+        "systemPrompt": "What investment options are available?",
+        "backgroundColor": "#737db4",
+        "image": "https://www.barclays.co.uk/adobe/assets/urn:aaid:aem:3457f6f7-a887-4306-b4e7-e5ad3fc11a85/as/PCAServiceQualityResultsforNorthernIrelandOverallPCAServiceQuality.png?width=1440&preferwebp=true"
+      }
+    ],
+    "feedback.positive.options": [
+      "Helpful information",
+      "Easy to use",
+      "Quick responses",
+      "Friendly tone",
+      "Other"
+    ],
+    "feedback.negative.options": [
+      "Unclear information",
+      "Difficult to navigate",
+      "Slow responses",
+      "Unhelpful tone",
+      "Other"
+    ]
+  },
+  "assets": {
+    "icons": {
+      "company": "https://www.barclays.co.uk/content/dam/barclayspublic/images/logo-barclays.svg"
+    }
+  },
+  "visualProfile": {
+    "sendIconIconColor": "#ffffff",
+    "sendIconBackgroundColor": "#0076b6"
+  },
+  "theme": {
+    "--cards-mobile-carousel-display": "block",
+    "--cards-mobile-pills-display": "none",
+    "--welcome-input-order": "3",
+    "--welcome-cards-order": "2",
+    "--welcome-heading-size-desktop": "2rem",
+    "--welcome-heading-size-mobile": "1.5rem",
+    "--welcome-heading-weight": "700",
+    "--welcome-heading-text-align": "center",
+    "--welcome-subheading-size-desktop": "1.25rem",
+    "--welcome-subheading-size-mobile": "1rem",
+    "--welcome-subheading-text-align": "center",
+    "--welcome-padding": "2rem",
+    "--prompt-suggestion-background": "#0076b6",
+    "--prompt-suggestion-background-hover": "#005e92",
+    "--prompt-suggestion-text-color": "#0076b6",
+    "--prompt-suggestion-border-color": "#0076b6",
+    "--font-family": "Arial, Helvetica, sans-serif",
+    "--color-primary": "#0076b6",
+    "--color-text": "#15384b",
+    "--line-height-body": "1.5",
+    "--main-container-background": "#ffffff",
+    "--input-height": "48px",
+    "--input-height-mobile": "40px",
+    "--input-border-radius": "4px",
+    "--input-border-radius-mobile": "4px",
+    "--input-background": "#ffffff",
+    "--input-outline-color": "#d9d9d9",
+    "--input-outline-width": "1px",
+    "--input-box-shadow": "0 2px 4px rgba(0, 0, 0, 0.1)",
+    "--input-focus-outline-width": "2px",
+    "--input-focus-outline-color": "#001276",
+    "--input-font-size": "1rem",
+    "--input-font-weight": "400",
+    "--input-text-color": "#000000",
+    "--input-button-height": "36px",
+    "--input-button-width": "36px",
+    "--submit-button-fill-color": "#ffffff",
+    "--submit-button-fill-color-disabled": "#CCCCCC",
+    "--color-button-submit": "#001276",
+    "--color-button-submit-hover": "#005e92",
+    "--input-button-border-radius": "8px",
+    "--button-disabled-background": "#F0F0F0",
+    "--disclaimer-color": "#666666",
+    "--disclaimer-font-size": "0.875rem",
+    "--disclaimer-font-weight": "400",
+    "--message-user-background": "#001276",
+    "--message-user-text": "#ffffff",
+    "--message-border-radius": "8px",
+    "--message-padding": "1rem",
+    "--message-concierge-background": "#f3f3f3",
+    "--message-concierge-text": "#000000",
+    "--message-max-width": "100%",
+    "--chat-interface-max-width": "768px",
+    "--message-blocker-height": "48px",
+    "--loading-message-background": "#d9d9d9",
+    "--loading-dot-background": "#626262",
+    "--color-text-muted": "#626262",
+    "--citations-text-font-weight": "400",
+    "--citations-desktop-button-font-size": "0.875rem",
+    "--feedback-icon-btn-background": "#f6f6f6",
+    "--feedback-icon-btn-hover-background": "#e6e6e6",
+    "--feedback-icon-btn-size-desktop": "40px",
+    "--feedback-container-gap": "1rem",
+    "--multimodal-card-box-shadow": "0 2px 4px rgba(0, 0, 0, 0.1)",
+    "--border-radius-card": "8px",
+    "--button-height-s": "36px",
+    "--button-primary-background": "#001276",
+    "--button-primary-text": "#ffffff",
+    "--button-primary-hover": "#005e92",
+    "--button-secondary-border": "1px solid #006666",
+    "--button-secondary-text": "#006666",
+    "--button-secondary-hover": "#004d4d",
+    "--color-button-secondary-hover-text": "#ffffff",
+    "--privacy-notice-background": "#f6f6f6",
+    "--privacy-notice-padding": "1rem",
+    "--privacy-notice-title-color": "#626262",
+    "--privacy-notice-text-color": "#626262",
+    "--privacy-notice-text-font-size": "0.875rem",
+    "--privacy-notice-title-font-size": "1rem",
+    "--message-concierge-link-decoration": "underline",
+    "--color-secondary": "#006666",
+    "--prompt-suggestion-button-background": "#d9d9d9",
+    "--prompt-pill-background": "#001276",
+    "--button-primary-mobile-background": "#0076b6",
+    "--button-primary-mobile-hover": "#005e92",
+    "--main-container-mobile-background": "#ffffff",
+    "--message-concierge-border-width": "1px",
+    "--message-concierge-link-color": "#006666",
+    "--prompt-suggestion-button-border-radius": "20px",
+    "--prompt-suggestion-button-padding": "0.5rem 1rem",
+    "--prompt-suggestions-container-gap": "1rem",
+    "--card-background": "#001276",
+    "--card-text-font-size": "1rem",
+    "--card-text-padding": "1rem",
+    "--chat-container-background": "#ffffff",
+    "--message-blocker-background": "#ffffff",
+    "--card-text-color": "#ffffff",
+    "--prompt-pill-border-color": "#001276",
+    "--prompt-pill-text-color": "#ffffff",
+    "--prompt-suggestion-button-text-color": "#626262",
+    "--prompt-suggestion-button-background-hover": "#d9d9d9",
+    "--welcome-heading-text-color": "#000000",
+    "--welcome-subheading-text-color": "#000000",
+    "--welcome-header-order": "1",
+    "--prompt-suggestions-flex-direction": "row",
+    "--prompt-suggestions-flex-wrap": "wrap"
+  }
+}
