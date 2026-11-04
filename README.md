@@ -29,6 +29,11 @@ and their titles using `barclaysProductCardByPath`. Blank variation is treated a
 The browser calls `/api/product-card`; AEM configuration and requests stay
 server-side. Optional `BARCLAYS_AEM_PUBLISH_ORIGIN` and
 `BARCLAYS_PRODUCT_CARD_PATH` overrides are separate from the legacy CTA settings.
+Every upstream product-card and variation-discovery request appends a fresh
+`cq` query parameter to bypass stale AEM/CDN responses, while preserving the
+persisted query's `;path=...;variation=...` parameters. The browser request,
+server fetch and API response also use `no-store`. Authored image URLs are
+returned unchanged; image assets are not indiscriminately cache-busted.
 The adapter maps the actual `title`, `description.html`, `ctaLabel`, `ctaLink`
 and `image._publishUrl` fields. Rich text (including the published escaped
 paragraph markup) is rendered as React-escaped plain text, never injected HTML.

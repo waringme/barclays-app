@@ -25,7 +25,9 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 async function requestJson(url: string, init?: RequestInit): Promise<Record<string, unknown>> {
-  const response = await fetch(url, { ...init, cache: 'no-store', signal: AbortSignal.timeout(8000) });
+  const freshUrl = new URL(url);
+  freshUrl.searchParams.set('cq', `${Date.now()}-${crypto.randomUUID()}`);
+  const response = await fetch(freshUrl.toString(), { ...init, cache: 'no-store', signal: AbortSignal.timeout(8000) });
   if (!response.ok) throw new Error(`Barclays content service returned HTTP ${response.status}.`);
   const payload: unknown = await response.json();
   if (!isRecord(payload)) throw new Error('Barclays content service returned an invalid response.');
