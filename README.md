@@ -391,7 +391,7 @@ Notes:
 app/
   page.tsx                 Barclays banking demo
   fragments/page.tsx       Preserved content-fragment developer tools
-  brand-concierge/page.tsx Consent-gated Adobe concierge
+  brand-concierge/page.tsx Direct entry to the in-app Concierge tab
   advice/page.tsx          Redirect to the banking demo
   layout.tsx               Root layout
   globals.css              Legacy content-fragment consumer styles
@@ -399,15 +399,19 @@ app/
   api/
     cta/route.ts           Server route: fetch a CTA fragment (proxies wrapper)
     variations/route.ts    Server route: list a fragment's variations
+    product-card/route.ts  Live Barclays product card and authored variations
   components/
     CtaConsumer.tsx        Developer UI: form + fetch + "how it works" panel
     CtaBanner.tsx          Renders the CTA fragment as a banner
     MobileApp.tsx          Responsive demo banking screens and local interactions
     BrandConcierge.tsx     Consent gate and isolated agent iframe
+    ProductCard.tsx        Live product card with authored-variation selector
     Brand.tsx             Barclays eagle and wordmark
     Icon.tsx              Shared interface icons
 lib/
   cta.ts                   Core fetch logic + timeout + AEM-unavailable fallback
+  product-card.ts          Barclays schema adapter and live variation discovery
+  brand-concierge.ts       Shared server-side Adobe client configuration
   mock.ts                  Offline snapshot loader
   mock/cf-1.json           cf-1 snapshot (master + variations)
 public/
