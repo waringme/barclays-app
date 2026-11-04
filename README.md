@@ -7,9 +7,34 @@ payments, card operations or banking connection are provided.
 
 The original AEM content-fragment consumer is preserved at **`/fragments`**,
 with its existing API routes, fetcher, variations and offline snapshot.
-The banking home deliberately does not fetch M&G content. Its promotional
-content is marked **“Demo content · AEM content to come”** so Barclays fragments
-can be added later without requiring a live AEM instance now.
+The banking home loads the published **Barclays product-card fragment**, not M&G
+content. Its selector discovers the authored variations from AEM and displays
+their actual titles.
+
+## Live Barclays product card
+
+Home uses the supplied persisted query:
+`/graphql/execute.json/barclays-xwalk/get-barclays-product-card-by-path`,
+with fragment path `/content/dam/barclays-xwalk/fragments/barclays-product-card`.
+The same publish origin's direct GraphQL endpoint,
+`/content/_cq_graphql/barclays-xwalk/endpoint.json`, discovers `_variations`
+and their titles using `barclaysProductCardByPath`. Blank variation is treated as
+`master`, matching the live service. The currently published options are
+**First Time Buyers** (master), **Savings Accounts** (`savings_accounts`) and
+**Credit Cards** (`credit_cards`); the UI does not hardcode this list.
+
+The browser calls `/api/product-card`; AEM configuration and requests stay
+server-side. Optional `BARCLAYS_AEM_PUBLISH_ORIGIN` and
+`BARCLAYS_PRODUCT_CARD_PATH` overrides are separate from the legacy CTA settings.
+The adapter maps the actual `title`, `description.html`, `ctaLabel`, `ctaLink`
+and `image._publishUrl` fields. Rich text (including the published escaped
+paragraph markup) is rendered as React-escaped plain text, never injected HTML.
+Relative CTA paths resolve against `https://www.barclays.co.uk/`; images use
+their publish URLs. Only HTTP(S) links and images are accepted.
+
+Loading, retrieval failures and image errors are visible. Failed requests can
+be retried, and changing variations cancels obsolete browser requests.
+No M&G/offline snapshot is substituted when Barclays content is unavailable.
 
 ## Banking interactions
 

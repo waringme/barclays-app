@@ -242,6 +242,22 @@ progress::-moz-progress-bar { background: #008cca; border-radius: 8px; }
 .in-app-concierge .concierge-toolbar .text-button { flex-shrink: 0; }
 .in-app-concierge .concierge-frame { height: clamp(460px, calc(100dvh - 260px), 640px); min-height: 0; }
 .in-app-concierge .concierge-config { overflow-wrap: anywhere; }
+.product-card { overflow: hidden; }
+.product-variation-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+.product-variation-heading label { font-size: 10px; font-weight: 600; color: var(--bank-navy); }
+.product-variation-heading > span { font-size: 9px; color: var(--bank-muted); white-space: nowrap; }
+.product-card select { width: 100%; min-height: 44px; padding: 10px; border: 1px solid #bfd8e7; border-radius: 8px; background: white; color: var(--bank-ink); font: inherit; font-size: 12px; }
+.product-content > img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 9px; margin-top: 20px; }
+.product-copy { padding-top: 20px; }
+.product-copy h2 { font-size: 25px; margin: 10px 0; }
+.product-description { color: var(--bank-muted); font-size: 12px; line-height: 1.8; white-space: pre-line; }
+.product-copy .primary-button { width: 100%; gap: 10px; text-align: center; }
+.product-copy .primary-button svg { flex-shrink: 0; }
+.product-copy .demo-note { color: var(--bank-muted); line-height: 1.7; margin-bottom: 0; }
+.product-loading, .product-image-error { font-size: 12px; color: var(--bank-muted); line-height: 1.7; }
+.product-error { margin-top: 18px; padding: 15px; border: 1px solid #eac1c1; background: #fff7f7; border-radius: 9px; color: #873e3e; overflow-wrap: anywhere; }
+.product-error h2 { font-size: 18px; }
+.product-error p { font-size: 12px; line-height: 1.7; }
 
   .bank-topbar { height: 76px; padding: 0 18px; position: sticky; top: 0; z-index: 4; }
   .desktop-welcome { display: none; }
