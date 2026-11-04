@@ -229,6 +229,19 @@ progress::-moz-progress-bar { background: #008cca; border-radius: 8px; }
 .concierge-config summary { cursor: pointer; }
 .concierge-config p { line-height: 1.8; }
 .concierge-config code { overflow-wrap: anywhere; }
+.concierge-entry { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 24px; padding: 14px; border: 1px solid #b9dff2; border-radius: 12px; background: #e5f4fb; color: var(--bank-navy); text-align: left; }
+.concierge-entry > span:nth-child(2) { flex: 1; min-width: 0; }
+.concierge-entry strong { display: block; font-size: 14px; }
+.concierge-entry small { display: block; margin-top: 3px; font-size: 10px; color: #426d85; }
+.concierge-entry > svg { width: 18px; flex-shrink: 0; }
+.in-app-concierge { min-width: 0; }
+.in-app-concierge .concierge-intro { font-size: 12px; line-height: 1.7; margin-top: 0; }
+.in-app-concierge .concierge-consent { margin: 20px 0; padding: 22px 18px; }
+.in-app-concierge .concierge-consent h2 { font-size: 23px; }
+.in-app-concierge .concierge-toolbar { align-items: flex-start; font-size: 10px; }
+.in-app-concierge .concierge-toolbar .text-button { flex-shrink: 0; }
+.in-app-concierge .concierge-frame { height: clamp(460px, calc(100dvh - 260px), 640px); min-height: 0; }
+.in-app-concierge .concierge-config { overflow-wrap: anywhere; }
 
   .bank-topbar { height: 76px; padding: 0 18px; position: sticky; top: 0; z-index: 4; }
   .desktop-welcome { display: none; }

@@ -38,7 +38,11 @@ Official eagle and wordmark assets from the user-supplied branding reference
 are stored in `public/brand/`. The agent receives the eagle as inline SVG,
 as required by its configuration.
 
-Open **`/brand-concierge`** from the app. **No Adobe SDK scripts or requests
+Choose **Ask Brand Concierge** near the top of Home, or use the persistent
+**Concierge** tab. Consent and chat now open inside the same phone-style app;
+**`/brand-concierge`** also opens that in-app view directly. Switching to another
+tab or closing the concierge removes its iframe; returning requires consent again.
+**No Adobe SDK scripts or requests
 load until the visitor chooses “Agree and open concierge”.** Continuing loads
 the upstream Web SDK (Alloy 2.35.1) and Adobe web agent in an isolated iframe.
 Closing or leaving the page removes that iframe; reopening starts a fresh SDK

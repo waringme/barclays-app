@@ -4,13 +4,16 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import Brand from './Brand';
 import Icon, { type IconName } from './Icon';
+import BrandConcierge from './BrandConcierge';
+import type { BrandConciergeConfig } from '@/lib/brand-concierge';
 
-type View = 'Home' | 'Accounts' | 'Cards' | 'Help';
+type View = 'Home' | 'Accounts' | 'Cards' | 'Help' | 'Concierge';
 type Panel = 'payment' | 'transfer' | 'goal' | 'spending' | 'activity' | 'notifications' | 'profile' | 'discover';
 
 const navigation: { name: View; icon: IconName }[] = [
   { name: 'Home', icon: 'home' }, { name: 'Accounts', icon: 'accounts' },
   { name: 'Cards', icon: 'card' }, { name: 'Help', icon: 'help' },
+  { name: 'Concierge', icon: 'spark' },
 ];
 const transactions: { name: string; category: string; date: string; amount: number; icon: IconName; color: string }[] = [
   { name: 'The Corner Coffee', category: 'Eating out', date: 'Today', amount: -4.8, icon: 'coffee', color: 'peach' },
@@ -79,8 +82,8 @@ function TransactionList({ query = '', limit = transactions.length, hidden = fal
   )) : <p className="empty-state">No demo activity matches “{query}”.</p>}</div>;
 }
 
-export default function MobileApp() {
-  const [view, setView] = useState<View>('Home');
+export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { conciergeConfig: BrandConciergeConfig; initialView?: 'Home' | 'Concierge' }) {
+  const [view, setView] = useState<View>(initialView);
   const [hidden, setHidden] = useState(false);
   const [frozen, setFrozen] = useState(false);
   const [panel, setPanel] = useState<Panel | null>(null);
@@ -103,7 +106,9 @@ export default function MobileApp() {
         </header>
         <div className="demo-strip"><Icon name="shield" /><p>A little look at what’s possible. <span>All accounts, balances and activity are fictional. No real banking.</span></p></div>
         <main className="bank-main" id="bank-content">
-          <div className="greeting-row"><div><p className="greeting-kicker"><Icon name="sun" />YOUR MONEY. YOUR POSSIBILITIES.</p><h1 ref={headingRef} tabIndex={-1}>{view === 'Home' ? 'Hello, Alex' : view === 'Accounts' ? 'Your accounts' : view === 'Cards' ? 'Your cards' : 'Here to help'}</h1><p className="greeting-subtitle">{view === 'Home' ? 'Let’s make your everyday a little easier.' : view === 'Accounts' ? 'Everything in one place. All figures are demo data.' : view === 'Cards' ? 'A little more control, right at your fingertips.' : 'Find a helpful answer, your way.'}</p></div>{(view === 'Home' || view === 'Accounts') && <button className="balance-toggle" onClick={() => setHidden(!hidden)} aria-pressed={hidden}><Icon name="eye" />{hidden ? 'Show balances' : 'Hide balances'}</button>}</div>
+          <div className="greeting-row"><div><p className="greeting-kicker"><Icon name="sun" />YOUR MONEY. YOUR POSSIBILITIES.</p><h1 ref={headingRef} tabIndex={-1}>{view === 'Home' ? 'Hello, Alex' : view === 'Accounts' ? 'Your accounts' : view === 'Cards' ? 'Your cards' : view === 'Concierge' ? 'Brand Concierge' : 'Here to help'}</h1><p className="greeting-subtitle">{view === 'Home' ? 'Let’s make your everyday a little easier.' : view === 'Accounts' ? 'Everything in one place. All figures are demo data.' : view === 'Cards' ? 'A little more control, right at your fingertips.' : view === 'Concierge' ? 'Your Barclays product questions, powered by Adobe.' : 'Find a helpful answer, your way.'}</p></div>{(view === 'Home' || view === 'Accounts') && <button className="balance-toggle" onClick={() => setHidden(!hidden)} aria-pressed={hidden}><Icon name="eye" />{hidden ? 'Show balances' : 'Hide balances'}</button>}</div>
+
+          {view === 'Home' && <button className="concierge-entry" onClick={() => navigate('Concierge')}><span className="round-icon sky"><Icon name="spark" /></span><span><strong>Ask Brand Concierge</strong><small>Explore Barclays products with Adobe AI</small></span><Icon name="chevron" /></button>}
 
           {(view === 'Home' || view === 'Accounts') && <>
             <div className="section-heading"><h2>Your accounts</h2><span className="subtle-label">3 demo accounts</span></div>
@@ -123,7 +128,7 @@ export default function MobileApp() {
               <section className="discover-card"><div><span className="section-kicker">MADE FOR YOUR NEXT CHAPTER</span><h2>Big plans start<br />with little steps.</h2><p>A new place. A fresh start. Whatever’s next,<br className="desktop-break" /> make room for a little possibility.</p><button className="text-button" onClick={() => setPanel('discover')}>Explore the possibilities <Icon name="arrow" /></button><span className="placeholder-label">Demo content · AEM content to come</span></div><div className="possibility-art" aria-hidden="true"><span className="art-sun" /><span className="art-arch" /><span className="art-step one" /><span className="art-step two" /><span className="art-step three" /><span className="art-plant" /></div></section>
             </div>
             <div className="dashboard-secondary">
-              <section className="concierge-card"><span className="concierge-kicker"><Icon name="spark" />A LITTLE GUIDANCE GOES A LONG WAY</span><h2>Your questions.<br />A helpful place to start.</h2><p>Explore Barclays products with Brand Concierge, powered by Adobe.</p><Link href="/brand-concierge" className="primary-button">Meet Brand Concierge <Icon name="arrow" /></Link><span className="concierge-note">AI-powered · General product questions only</span></section>
+              <section className="concierge-card"><span className="concierge-kicker"><Icon name="spark" />A LITTLE GUIDANCE GOES A LONG WAY</span><h2>Your questions.<br />A helpful place to start.</h2><p>Explore Barclays products with Brand Concierge, powered by Adobe.</p><button onClick={() => navigate('Concierge')} className="primary-button">Meet Brand Concierge <Icon name="arrow" /></button><span className="concierge-note">AI-powered · General product questions only</span></section>
               <section className="surface goal-card"><div className="section-heading"><h2>Away-day dreaming</h2><Icon name="sun" /></div><div className="goal-summary"><div className="goal-illustration" aria-hidden="true"><span>☀</span><i /><b /></div><div><h3>Your next adventure</h3><strong>{balance(1250)}</strong><span>{hidden ? 'Goal balance hidden' : 'of £2,000 demo goal'}</span></div></div><progress value="1250" max="2000" aria-label="Demo holiday goal: 62.5 percent" /><div className="goal-bottom"><span>Every little bit counts.</span><button className="icon-button" aria-label="View savings goal" onClick={() => setPanel('goal')}><Icon name="arrow" /></button></div></section>
               <div className="security-tip"><Icon name="lock" /><p><strong>A moment to stay safe</strong>We’ll never ask for your PIN or passcode in a chat.</p></div>
             </div>
@@ -133,12 +138,18 @@ export default function MobileApp() {
 
           {view === 'Cards' && <div className="cards-layout"><section className="surface"><div className={`debit-card ${frozen ? 'frozen' : ''}`}><span>BARCLAYS</span><Icon name="card" /><strong>•••• &nbsp; •••• &nbsp; •••• &nbsp; 4821</strong><div><span>A MORGAN<br /><small>DEMO · NOT A VALID CARD</small></span><b>VISA</b></div></div><h2>Everyday debit card</h2><p>Fictional card ending 4821. No usable card details are displayed.</p><button className="primary-button" aria-pressed={frozen} onClick={() => setFrozen(!frozen)}><Icon name="lock" />{frozen ? 'Unfreeze demo card' : 'Freeze demo card'}</button><p className="card-status" role="status">{frozen ? 'Demo card frozen. This only changes the on-screen preview.' : 'Demo card active. This control does not affect a real card.'}</p></section><section className="surface"><span className="round-icon sky"><Icon name="shield" /></span><h2>You’re in control</h2><p>Try freezing and unfreezing the demo card. The state lasts only until you reload this page.</p><p>For a lost or stolen real Barclays card, use the official Barclays app or website.</p><a className="text-button" href="https://www.barclays.co.uk/help/" target="_blank" rel="noopener noreferrer">Visit official Barclays help <Icon name="arrow" /></a></section></div>}
 
-          {view === 'Help' && <div className="help-grid"><section className="concierge-card"><span className="round-icon"><Icon name="spark" /></span><h2>A little help from<br />Brand Concierge</h2><p>Ask general questions about Barclays products. This Adobe-powered agent cannot access your accounts or make transactions.</p><Link href="/brand-concierge" className="primary-button">Open Brand Concierge <Icon name="arrow" /></Link></section><section className="surface"><h2>Good to know</h2><details><summary>Is this a real banking app?</summary><p>No. This is an independent demonstration. All customer information and balances are fictional; no money can be moved.</p></details><details><summary>Where are the content fragments?</summary><p>The demo uses labelled placeholder content. The original AEM fetcher, API routes and fragment preview remain available in the developer tools.</p><Link href="/fragments">Open content-fragment tools</Link></details><details><summary>Can I get help with my real account?</summary><p>This demo cannot provide account support. Use the official Barclays app or visit <a href="https://www.barclays.co.uk/help/" target="_blank" rel="noopener noreferrer">Barclays help</a>. Never enter personal banking details here.</p></details></section></div>}
+          {view === 'Help' && <div className="help-grid"><section className="concierge-card"><span className="round-icon"><Icon name="spark" /></span><h2>A little help from<br />Brand Concierge</h2><p>Ask general questions about Barclays products. This Adobe-powered agent cannot access your accounts or make transactions.</p><button onClick={() => navigate('Concierge')} className="primary-button">Open Brand Concierge <Icon name="arrow" /></button></section><section className="surface"><h2>Good to know</h2><details><summary>Is this a real banking app?</summary><p>No. This is an independent demonstration. All customer information and balances are fictional; no money can be moved.</p></details><details><summary>Where are the content fragments?</summary><p>The demo uses labelled placeholder content. The original AEM fetcher, API routes and fragment preview remain available in the developer tools.</p><Link href="/fragments">Open content-fragment tools</Link></details><details><summary>Can I get help with my real account?</summary><p>This demo cannot provide account support. Use the official Barclays app or visit <a href="https://www.barclays.co.uk/help/" target="_blank" rel="noopener noreferrer">Barclays help</a>. Never enter personal banking details here.</p></details></section></div>}
+
+          {view === 'Concierge' && <section className="in-app-concierge" aria-label="Brand Concierge">
+            <p className="concierge-intro">Explore Barclays products here in the app. This is an independent demo, not account support or financial advice. Never share real account details, card numbers, PINs or passcodes.</p>
+            <BrandConcierge config={conciergeConfig} />
+            <details className="concierge-config"><summary>Connection and setup information</summary><p>Adapted from the <a href="https://github.com/waringme/barclays-xwalk/tree/main/blocks/brand-concierge" target="_blank" rel="noopener noreferrer">Barclays Brand Concierge block</a>, using its Web SDK, agent and exported styling configuration. A loaded interface does not confirm that the conversation service is configured.</p><p>The Adobe datastream must enable Brand Concierge, have a published concierge attached and allow this deployment’s domain (including localhost for local use). Service-side errors are shown by the Adobe agent, not replaced with sample answers.</p><p>Datastream: <code>{conciergeConfig.datastreamId}</code><br />Organisation: <code>{conciergeConfig.orgId}</code><br />Region: <code>{conciergeConfig.region}</code></p><p>Override with <code>BRAND_CONCIERGE_DATASTREAM_ID</code>, <code>BRAND_CONCIERGE_ORG_ID</code> and <code>BRAND_CONCIERGE_REGION</code>. These are public client identifiers, not credentials.</p></details>
+          </section>}
 
           <footer className="bank-footer"><span>Barclays-inspired. Built for a little exploration.</span><span>Independent demo · Not an official Barclays service</span></footer>
         </main>
       </div>
-      <nav className="mobile-nav" aria-label="Mobile navigation">{navigation.map(item => <button key={item.name} onClick={() => navigate(item.name)} aria-current={view === item.name ? 'page' : undefined}><Icon name={item.icon} /><span>{item.name}</span></button>)}<Link href="/brand-concierge"><Icon name="spark" /><span>Concierge</span></Link></nav>
+      <nav className="mobile-nav" aria-label="Mobile navigation">{navigation.map(item => <button key={item.name} onClick={() => navigate(item.name)} aria-current={view === item.name ? 'page' : undefined}><Icon name={item.icon} /><span>{item.name}</span></button>)}</nav>
       {panel && <DemoDialog key={panel} panel={panel} close={() => setPanel(null)} />}
       </div>
     </div>

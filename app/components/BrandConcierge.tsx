@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Icon from './Icon';
+import type { BrandConciergeConfig } from '@/lib/brand-concierge';
 
-export default function BrandConcierge({ config }: { config: { datastreamId: string; orgId: string; region: string } }) {
+export default function BrandConcierge({ config }: { config: BrandConciergeConfig }) {
   const [consented, setConsented] = useState(false);
   const [attempt, setAttempt] = useState(0);
   if (!consented) {
