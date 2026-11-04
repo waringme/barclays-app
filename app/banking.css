@@ -16,7 +16,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .bank-app h1, .bank-app h2, .bank-app h3, .concierge-page h1, .concierge-page h2 { font-weight: 500; letter-spacing: -.035em; }
 .bank-app h2 { font-size: 19px; line-height: 1.3; }
 .bank-app h3 { font-size: 16px; }
-.bank-app { min-height: 100dvh; background: var(--bank-bg); }
+.bank-demo-stage { min-height: 100dvh; padding: 22px 24px 32px; display: flex; flex-direction: column; align-items: center; background: #edf2f6; }
+.demo-site-warning { margin: 0; padding: 0 0 20px; color: #c4161c; font-family: Arial, Helvetica, sans-serif; font-size: clamp(28px, 5vw, 44px); font-weight: 800; line-height: 1.15; text-align: center; }
+.bank-app { width: 430px; max-width: 100%; height: min(850px, calc(100dvh - 125px)); min-height: 480px; display: flex; flex-direction: column; position: relative; overflow: hidden; border: 10px solid #00395d; border-radius: 42px; background: var(--bank-bg); box-shadow: 0 25px 65px #00395d29; }
 .skip-link { position: fixed; top: -100px; left: 20px; z-index: 20; padding: 12px 20px; background: white; border-radius: 8px; }
 .skip-link:focus { top: 10px; }
 .bank-sidebar { position: fixed; inset: 0 auto 0 0; width: 246px; padding: 37px 24px 20px; background: white; border-right: 1px solid var(--bank-line); display: flex; flex-direction: column; z-index: 5; }
@@ -43,7 +45,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .profile-button strong { font-size: 11px; font-weight: 600; }
 .profile-button small { display: block; margin-top: 3px; color: var(--bank-muted); font-size: 10px; }
 .profile-button > svg { margin-left: auto; width: 15px; }
-.bank-workspace { margin-left: 246px; }
+.bank-workspace { min-height: 0; flex: 1; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-width: thin; }
 .bank-topbar { height: 83px; background: white; padding: 0 44px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--bank-line); }
 .desktop-welcome { font-size: 12px; color: var(--bank-muted); }
 .topbar-actions { display: flex; align-items: center; gap: 23px; }
@@ -208,6 +210,7 @@ progress::-moz-progress-bar { background: #008cca; border-radius: 8px; }
 .soft-notice svg { color: #0076b6; flex-shrink: 0; }
 
 .concierge-page { min-height: 100dvh; background: var(--bank-bg); }
+.concierge-page > .demo-site-warning { padding: 18px 16px; background: #edf2f6; }
 .concierge-header { padding: 24px max(24px, calc((100vw - 1060px) / 2)); background: white; border-bottom: 1px solid var(--bank-line); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
 .concierge-main { max-width: 1000px; padding: 42px 24px 60px; }
 .concierge-main > h1 { font-size: 38px; margin: 12px 0; }
@@ -227,72 +230,19 @@ progress::-moz-progress-bar { background: #008cca; border-radius: 8px; }
 .concierge-config p { line-height: 1.8; }
 .concierge-config code { overflow-wrap: anywhere; }
 
-@media (min-width: 1600px) {
-  .bank-main { padding-top: 50px; }
-  .account-card { padding: 24px; }
-  .account-balance { margin-top: 27px; }
-  .dashboard-columns { gap: 28px; }
-  .transaction { padding: 20px 0; }
-  .concierge-card { padding: 30px; }
-}
-@media (max-width: 1200px) {
-  .bank-sidebar { width: 210px; padding-left: 17px; padding-right: 17px; }
-  .bank-workspace { margin-left: 210px; }
-  .bank-main { padding: 30px 26px 20px; }
-  .bank-topbar { padding: 0 26px; }
-  .account-card { padding: 17px; }
-  .quick-action-grid { gap: 8px; }
-  .quick-action-grid button { font-size: 10px; padding: 10px; gap: 7px; }
-  .quick-action-grid button > svg { display: none; }
-  .surface { padding: 20px; }
-  .activity-surface { padding-bottom: 0; }
-  .dashboard-columns { gap: 18px; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
-  .concierge-card { padding: 22px; }
-  .concierge-kicker { font-size: 7px; }
-  .transaction-name strong, .transaction-amount { font-size: 11px; }
-  .transaction { gap: 8px; }
-  .discover-card { padding: 22px; }
-  .possibility-art { right: -35px; opacity: .9; }
-  .discover-card p { max-width: 25ch; }
-  .desktop-break { display: none; }
-}
-@media (max-width: 1000px) and (min-width: 761px) {
-  .bank-sidebar { width: 180px; padding-left: 12px; padding-right: 12px; }
-  .bank-sidebar .barclays-brand { gap: 4px; }
-  .bank-sidebar .barclays-brand img:first-child { width: 28px; }
-  .bank-sidebar .barclays-brand img:last-child { width: 103px; }
-  .bank-workspace { margin-left: 180px; }
-  .bank-main { padding: 28px 20px; }
-  .account-grid { gap: 9px; }
-  .account-card { padding: 15px 12px; }
-  .account-top { font-size: 9px; gap: 5px; }
-  .account-card h3 { font-size: 13px; }
-  .account-number span { display: none; }
-  .account-caption { font-size: 8px; }
-  .account-balance { font-size: 25px; }
-  .dashboard-columns { grid-template-columns: 1fr; }
-  .dashboard-secondary { display: grid; grid-template-columns: 1fr 1fr; align-items: flex-start; }
-  .security-tip { grid-column: 1 / -1; }
-  .discover-card { min-height: 230px; }
-  .possibility-art { right: 20px; }
-  .cards-layout, .help-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 760px) {
-  .bank-sidebar { display: none; }
-  .bank-workspace { margin-left: 0; }
-  .bank-topbar { height: 76px; padding: 0 22px; }
+  .bank-topbar { height: 76px; padding: 0 18px; position: sticky; top: 0; z-index: 4; }
   .desktop-welcome { display: none; }
   .mobile-brand { display: block; }
   .mobile-brand .barclays-brand img:first-child { width: 28px; height: 31px; }
   .mobile-brand .barclays-brand img:last-child { width: 101px; height: 22px; }
-  .topbar-actions { gap: 13px; }
-  .topbar-avatar { display: none; }
+  .bank-topbar .topbar-actions { gap: 6px; }
+  .topbar-avatar { width: 30px; height: 30px; font-size: 10px; }
   .notification-button { border: 0; padding: 7px; }
   .demo-badge { font-size: 9px; }
   .demo-strip { justify-content: start; font-size: 9px; padding: 11px 22px; align-items: start; }
   .demo-strip svg { margin-top: 1px; }
   .demo-strip p > span { display: block; margin-top: 2px; }
-  .bank-main { padding: 28px 22px 105px; }
+  .bank-main { padding: 24px 20px 24px; }
   .greeting-row { margin-bottom: 26px; align-items: flex-start; }
   .greeting-kicker { font-size: 8px; }
   .greeting-row h1 { font-size: 34px; }
@@ -320,6 +270,7 @@ progress::-moz-progress-bar { background: #008cca; border-radius: 8px; }
   .quick-action-grid button { flex-direction: column; border: 0; padding: 0; background: transparent; gap: 9px; font-size: 9px; white-space: nowrap; }
   .quick-action-grid button > span { width: 48px; height: 48px; background: white; border: 1px solid #e1edf4; }
   .quick-action-grid button > span svg { width: 21px; height: 21px; }
+  .quick-action-grid button > svg { display: none; }
   .dashboard-columns { grid-template-columns: 1fr; gap: 20px; }
   .dashboard-primary, .dashboard-secondary { gap: 20px; }
   .surface { padding: 21px; }
@@ -338,14 +289,20 @@ progress::-moz-progress-bar { background: #008cca; border-radius: 8px; }
   .concierge-note { font-size: 9px; }
   .security-tip { padding: 0 4px; }
   .bank-footer { display: grid; gap: 6px; margin-top: 28px; font-size: 8px; }
-  .mobile-nav { display: grid; grid-template-columns: repeat(5, 1fr); position: fixed; bottom: 0; left: 0; right: 0; background: #fffffff5; backdrop-filter: blur(16px); border-top: 1px solid var(--bank-line); padding: 10px 8px max(10px, env(safe-area-inset-bottom)); z-index: 5; }
-  .mobile-nav button, .mobile-nav a { display: flex; align-items: center; flex-direction: column; gap: 5px; border: 0; background: transparent; text-decoration: none; font-size: 9px; color: #738a98; padding: 4px; }
+  .mobile-nav { display: grid; grid-template-columns: repeat(5, 1fr); flex-shrink: 0; background: white; border-top: 1px solid var(--bank-line); padding: 10px 8px max(10px, env(safe-area-inset-bottom)); z-index: 5; }
+  .mobile-nav button, .mobile-nav a { display: flex; align-items: center; flex-direction: column; justify-content: center; gap: 5px; min-height: 44px; border: 0; background: transparent; text-decoration: none; font-size: 9px; color: #738a98; padding: 4px; }
   .mobile-nav button[aria-current] { color: #0076b6; font-weight: 600; }
   .mobile-nav button[aria-current] svg { background: #e6f4fc; outline: 5px solid #e6f4fc; border-radius: 6px; }
   .mobile-nav svg { width: 21px; height: 21px; }
   .cards-layout, .help-grid { grid-template-columns: 1fr; }
   .debit-card { max-width: 100%; padding: 22px; }
   .bank-dialog { padding: 22px; }
+@media (max-width: 480px) {
+  .bank-demo-stage { height: 100dvh; min-height: 0; padding: 0; }
+  .demo-site-warning { width: 100%; padding: 15px 10px; font-size: clamp(26px, 7vw, 34px); flex-shrink: 0; }
+  .bank-app { flex: 1; min-height: 0; width: 100%; height: auto; border: 0; border-top: 1px solid var(--bank-line); border-radius: 0; box-shadow: none; }
+}
+@media (max-width: 760px) {
   .concierge-header { padding: 20px; }
   .concierge-header .topbar-actions { flex-direction: column; align-items: flex-end; gap: 7px; }
   .concierge-header .barclays-brand img:first-child { width: 28px; }
