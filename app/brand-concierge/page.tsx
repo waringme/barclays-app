@@ -16,6 +16,7 @@ export default function ConciergePage() {
   };
   return (
     <div className="concierge-page">
+      <p className="demo-site-warning">this is a demo site</p>
       <header className="concierge-header"><Brand /><div className="topbar-actions"><span className="demo-badge"><span />Demo App</span><Link className="text-button" href="/">Back to my overview <Icon name="arrow" /></Link></div></header>
       <main className="concierge-main">
         <span className="section-kicker">A LITTLE GUIDANCE GOES A LONG WAY</span>

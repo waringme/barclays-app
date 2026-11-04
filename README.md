@@ -20,8 +20,10 @@ can be added later without requiring a live AEM instance now.
 - Cards lets you freeze/unfreeze a fictional card, in page memory only.
 - Savings goals, spending breakdowns, notifications and Help provide useful
   illustrative detail. Reloading resets all demo state.
-- On smaller screens the layout becomes a mobile banking experience with a
-  fixed bottom navigation, rather than a fixed-size phone frame.
+- The banking experience uses a centred phone frame on desktop and fills the
+  available width on mobile, with an independently scrolling feed and persistent
+  bottom navigation. A large red “this is a demo site” warning appears above the
+  app and on the Brand Concierge page.
 
 ## Brand Concierge
 

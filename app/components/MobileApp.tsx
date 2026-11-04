@@ -85,27 +85,20 @@ export default function MobileApp() {
   const [frozen, setFrozen] = useState(false);
   const [panel, setPanel] = useState<Panel | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const workspaceRef = useRef<HTMLDivElement>(null);
   function navigate(next: View) {
     setView(next);
-    requestAnimationFrame(() => { headingRef.current?.focus(); window.scrollTo({ top: 0 }); });
+    requestAnimationFrame(() => { headingRef.current?.focus({ preventScroll: true }); workspaceRef.current?.scrollTo({ top: 0 }); });
   }
   const balance = (value: number) => hidden ? '••••••' : money(value);
   return (
-    <div className="bank-app">
+    <div className="bank-demo-stage">
+      <p className="demo-site-warning">this is a demo site</p>
+      <div className="bank-app">
       <a href="#bank-content" className="skip-link">Skip to content</a>
-      <aside className="bank-sidebar">
-        <Brand />
-        <div className="sidebar-label">YOUR EVERYDAY BANKING</div>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          {navigation.map(item => <button key={item.name} onClick={() => navigate(item.name)} aria-current={view === item.name ? 'page' : undefined}><Icon name={item.icon} />{item.name}{view === item.name && <span className="nav-indicator" />}</button>)}
-        </nav>
-        <Link href="/brand-concierge" className="sidebar-concierge"><span className="round-icon"><Icon name="spark" /></span><strong>A little help?<span>Meet Brand Concierge</span></strong><Icon name="chevron" /></Link>
-        <div className="sidebar-bottom"><div className="safe-label"><Icon name="shield" /><span>A safe space to explore</span></div><Link href="/fragments"><Icon name="settings" />Content-fragment tools</Link><button className="profile-button" onClick={() => setPanel('profile')}><span className="avatar">AM</span><span><strong>Alex Morgan</strong><small>Demo profile</small></span><Icon name="chevron" /></button></div>
-      </aside>
-
-      <div className="bank-workspace">
+      <div className="bank-workspace" ref={workspaceRef}>
         <header className="bank-topbar">
-          <div className="mobile-brand"><Brand /></div><span className="desktop-welcome">Personal banking, with you in mind.</span>
+          <div className="mobile-brand"><Brand /></div>
           <div className="topbar-actions"><span className="demo-badge"><span />Demo App</span><button className="icon-button notification-button" aria-label="View notifications" onClick={() => setPanel('notifications')}><Icon name="bell" /></button><button className="avatar topbar-avatar" aria-label="Open demo profile" onClick={() => setPanel('profile')}>AM</button></div>
         </header>
         <div className="demo-strip"><Icon name="shield" /><p>A little look at what’s possible. <span>All accounts, balances and activity are fictional. No real banking.</span></p></div>
@@ -147,6 +140,7 @@ export default function MobileApp() {
       </div>
       <nav className="mobile-nav" aria-label="Mobile navigation">{navigation.map(item => <button key={item.name} onClick={() => navigate(item.name)} aria-current={view === item.name ? 'page' : undefined}><Icon name={item.icon} /><span>{item.name}</span></button>)}<Link href="/brand-concierge"><Icon name="spark" /><span>Concierge</span></Link></nav>
       {panel && <DemoDialog key={panel} panel={panel} close={() => setPanel(null)} />}
+      </div>
     </div>
   );
 }
