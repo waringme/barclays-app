@@ -1,6 +1,6 @@
 # Barclays banking demo
 
-A responsive, independent **Barclays-branded banking demo**, using sdsadasdsa
+A responsive, independent **Barclays-branded banking demo**, using sdsadasdsaddd
 [barclays.co.uk](https://www.barclays.co.uk/) as the visual reference. The main
 experience uses fictional local data, not live accounts. No login, real
 payments, card operations or banking connection are provided.
