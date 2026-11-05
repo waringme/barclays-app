@@ -98,8 +98,10 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
   const balance = (value: number) => hidden ? '••••••' : money(value);
   return (
     <div className="bank-demo-stage">
-      <p className="demo-site-warning">this is a demo site</p>
-      <ProductVariationSelector state={productCard} />
+      <header className="demo-controls">
+        <p className="demo-site-warning">this is a demo site</p>
+        <ProductVariationSelector state={productCard} />
+      </header>
       <div className="bank-app">
       <a href="#bank-content" className="skip-link">Skip to content</a>
       <div className="bank-workspace" ref={workspaceRef}>
