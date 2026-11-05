@@ -9,8 +9,9 @@ The original AEM content-fragment consumer is preserved at **`/fragments`**,
 with its existing API routes, fetcher, variations and offline snapshot.
 The banking home loads the published **Barclays product-card fragment**, not M&G
 content. Its selector discovers the authored variations from AEM and displays
-their actual titles. The single variation dropdown sits outside the phone,
-directly below the red demo warning, and updates the product card inside Home,
+their actual titles. The single variation dropdown sits outside the phone in a
+compact top header alongside the red demo warning (stacked on narrow screens),
+leaving more height for the app. It updates the product card inside Home,
 immediately above the Everyday account balance section.
 The selection is retained when switching app tabs.
 
