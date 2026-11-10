@@ -48,7 +48,8 @@ No M&G/offline snapshot is substituted when Barclays content is unavailable.
 ## Banking interactions
 
 Home includes the live Scene7 template `https://s7g10.scene7.com/is/template/AGS487/cred-card`.
-The demo-persona selector pairs Tim / Treat yourself, Alex / Plan ahead and
+The demo-persona selector sits beside the content-fragment dropdown in the
+compact external top bar, outside the phone. It pairs Tim / Treat yourself, Alex / Plan ahead and
 Sam / Explore more. It updates `$firstname` and `$cta` using URL parameters,
 along with the greeting and demo profile. The template retains `wid=800`,
 `hei=533`, `qlt=80`, `fit=constrain` and `fmt=png-alpha`. Persona selection

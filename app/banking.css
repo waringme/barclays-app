@@ -17,7 +17,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .bank-app h2 { font-size: 19px; line-height: 1.3; }
 .bank-app h3 { font-size: 16px; }
 .bank-demo-stage { height: 100dvh; min-height: 640px; padding: 12px 20px 16px; display: flex; flex-direction: column; align-items: center; background: #edf2f6; }
-.demo-controls { width: 100%; max-width: 960px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 320px); align-items: center; gap: 16px; margin-bottom: 12px; flex-shrink: 0; }
+.demo-controls { width: 100%; max-width: 1200px; display: grid; grid-template-columns: auto minmax(0, 540px); justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 12px; flex-shrink: 0; }
+.demo-selectors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 12px; min-width: 0; }
+.demo-selectors .product-variation-heading > span { display: none; }
 .demo-site-warning { margin: 0; color: #c4161c; font-family: Arial, Helvetica, sans-serif; font-size: clamp(28px, 3vw, 40px); font-weight: 800; line-height: 1.15; }
 .bank-app { width: 430px; max-width: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; overflow: hidden; border: 10px solid #00395d; border-radius: 42px; background: var(--bank-bg); box-shadow: 0 25px 65px #00395d29; }
 .skip-link { position: fixed; top: -100px; left: 20px; z-index: 20; padding: 12px 20px; background: white; border-radius: 8px; }
@@ -245,8 +247,6 @@ progress::-moz-progress-bar { background: #008cca; border-radius: 8px; }
 .in-app-concierge .concierge-config { overflow-wrap: anywhere; }
 .product-card { overflow: hidden; margin-bottom: 24px; }
 .dynamic-media-card { margin-bottom: 24px; }
-.dynamic-media-card label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; }
-.dynamic-media-card select { width: 100%; min-height: 44px; padding: 10px; border: 1px solid #bfd8e7; border-radius: 8px; background: white; color: var(--bank-ink); font: inherit; font-size: 12px; }
 .dynamic-media-image { margin-top: 16px; }
 .dynamic-media-image[aria-busy="true"] { aspect-ratio: 800 / 533; }
 .dynamic-media-image img { display: block; width: 100%; height: auto; aspect-ratio: 800 / 533; border-radius: 9px; }

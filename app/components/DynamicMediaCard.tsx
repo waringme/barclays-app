@@ -28,7 +28,19 @@ function TemplateImage({ url, persona }: { url: string; persona: DemoPersona }) 
   </div>;
 }
 
-export default function DynamicMediaCard({ persona, onPersonaChange }: { persona: DemoPersona; onPersonaChange: (persona: DemoPersona) => void }) {
+export function PersonaSelector({ persona, onPersonaChange }: { persona: DemoPersona; onPersonaChange: (persona: DemoPersona) => void }) {
+  return <section className="product-variation-control" aria-label="Demo persona options">
+    <div className="product-variation-heading"><label htmlFor="demo-persona">Demo persona</label></div>
+    <select id="demo-persona" value={persona.name} onChange={event => {
+      const selected = demoPersonas.find(item => item.name === event.target.value);
+      if (selected) onPersonaChange(selected);
+    }}>
+      {demoPersonas.map(item => <option key={item.name} value={item.name}>{item.name} · {item.cta}</option>)}
+    </select>
+  </section>;
+}
+
+export default function DynamicMediaCard({ persona }: { persona: DemoPersona }) {
   const url = new URL('https://s7g10.scene7.com/is/template/AGS487/cred-card');
   for (const [name, value] of Object.entries({
     '$cta': persona.cta, '$firstname': persona.name,
@@ -38,13 +50,6 @@ export default function DynamicMediaCard({ persona, onPersonaChange }: { persona
   return <section className="dynamic-media-card surface" aria-labelledby="dynamic-media-title">
     <span className="section-kicker">LIVE DYNAMIC MEDIA · FICTIONAL PERSONAS</span>
     <h2 id="dynamic-media-title">A little more personal</h2>
-    <label htmlFor="demo-persona">Demo persona</label>
-    <select id="demo-persona" value={persona.name} onChange={event => {
-      const selected = demoPersonas.find(item => item.name === event.target.value);
-      if (selected) onPersonaChange(selected);
-    }}>
-      {demoPersonas.map(item => <option key={item.name} value={item.name}>{item.name} · {item.cta}</option>)}
-    </select>
     <TemplateImage key={url.href} url={url.href} persona={persona} />
   </section>;
 }

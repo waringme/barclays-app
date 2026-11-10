@@ -6,7 +6,7 @@ import Brand from './Brand';
 import Icon, { type IconName } from './Icon';
 import BrandConcierge from './BrandConcierge';
 import ProductCard, { ProductVariationSelector, useProductCard } from './ProductCard';
-import DynamicMediaCard, { demoPersonas, type DemoPersona } from './DynamicMediaCard';
+import DynamicMediaCard, { demoPersonas, PersonaSelector, type DemoPersona } from './DynamicMediaCard';
 import type { BrandConciergeConfig } from '@/lib/brand-concierge';
 
 type View = 'Home' | 'Accounts' | 'Cards' | 'Help' | 'Concierge';
@@ -102,7 +102,10 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
     <div className="bank-demo-stage">
       <header className="demo-controls">
         <p className="demo-site-warning">this is a demo site</p>
-        <ProductVariationSelector state={productCard} />
+        <div className="demo-selectors">
+          <ProductVariationSelector state={productCard} />
+          <PersonaSelector persona={persona} onPersonaChange={setPersona} />
+        </div>
       </header>
       <div className="bank-app">
       <a href="#bank-content" className="skip-link">Skip to content</a>
@@ -117,7 +120,7 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
 
           {view === 'Home' && <button className="concierge-entry" onClick={() => navigate('Concierge')}><span className="round-icon sky"><Icon name="spark" /></span><span><strong>Ask Brand Concierge</strong><small>Explore Barclays products with Adobe AI</small></span><Icon name="chevron" /></button>}
 
-          {view === 'Home' && <DynamicMediaCard persona={persona} onPersonaChange={setPersona} />}
+          {view === 'Home' && <DynamicMediaCard persona={persona} />}
           {view === 'Home' && <ProductCard state={productCard} />}
 
           {(view === 'Home' || view === 'Accounts') && <>
@@ -145,7 +148,7 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
 
           {view === 'Accounts' && <section className="surface account-detail"><h2>A clearer picture of your everyday</h2><p>Your savings include the illustrative £1,250 holiday goal. Account details and balances are fictional; no bank is connected.</p><div className="section-heading"><h3>Everyday account activity</h3><button className="text-button" onClick={() => setPanel('activity')}>Search activity <Icon name="search" /></button></div><TransactionList hidden={hidden} /></section>}
 
-          {view === 'Cards' && <div className="cards-layout"><section className="surface"><div className={`debit-card ${frozen ? 'frozen' : ''}`}><span>BARCLAYS</span><Icon name="card" /><strong>•••• &nbsp; •••• &nbsp; •••• &nbsp; 4821</strong><div><span>A MORGAN<br /><small>DEMO · NOT A VALID CARD</small></span><b>VISA</b></div></div><h2>Everyday debit card</h2><p>Fictional card ending 4821. No usable card details are displayed.</p><button className="primary-button" aria-pressed={frozen} onClick={() => setFrozen(!frozen)}><Icon name="lock" />{frozen ? 'Unfreeze demo card' : 'Freeze demo card'}</button><p className="card-status" role="status">{frozen ? 'Demo card frozen. This only changes the on-screen preview.' : 'Demo card active. This control does not affect a real card.'}</p></section><section className="surface"><span className="round-icon sky"><Icon name="shield" /></span><h2>You’re in control</h2><p>Try freezing and unfreezing the demo card. The state lasts only until you reload this page.</p><p>For a lost or stolen real Barclays card, use the official Barclays app or website.</p><a className="text-button" href="https://www.barclays.co.uk/help/" target="_blank" rel="noopener noreferrer">Visit official Barclays help <Icon name="arrow" /></a></section></div>}
+          {view === 'Cards' && <div className="cards-layout"><section className="surface"><div className={`debit-card ${frozen ? 'frozen' : ''}`}><span>BARCLAYS</span><Icon name="card" /><strong>•••• &nbsp; •••• &nbsp; •••• &nbsp; 4821</strong><div><span>{persona.name.toUpperCase()}<br /><small>DEMO · NOT A VALID CARD</small></span><b>VISA</b></div></div><h2>Everyday debit card</h2><p>Fictional card ending 4821. No usable card details are displayed.</p><button className="primary-button" aria-pressed={frozen} onClick={() => setFrozen(!frozen)}><Icon name="lock" />{frozen ? 'Unfreeze demo card' : 'Freeze demo card'}</button><p className="card-status" role="status">{frozen ? 'Demo card frozen. This only changes the on-screen preview.' : 'Demo card active. This control does not affect a real card.'}</p></section><section className="surface"><span className="round-icon sky"><Icon name="shield" /></span><h2>You’re in control</h2><p>Try freezing and unfreezing the demo card. The state lasts only until you reload this page.</p><p>For a lost or stolen real Barclays card, use the official Barclays app or website.</p><a className="text-button" href="https://www.barclays.co.uk/help/" target="_blank" rel="noopener noreferrer">Visit official Barclays help <Icon name="arrow" /></a></section></div>}
 
           {view === 'Help' && <div className="help-grid"><section className="concierge-card"><span className="round-icon"><Icon name="spark" /></span><h2>A little help from<br />Brand Concierge</h2><p>Ask general questions about Barclays products. This Adobe-powered agent cannot access your accounts or make transactions.</p><button onClick={() => navigate('Concierge')} className="primary-button">Open Brand Concierge <Icon name="arrow" /></button></section><section className="surface"><h2>Good to know</h2><details><summary>Is this a real banking app?</summary><p>No. This is an independent demonstration. All customer information and balances are fictional; no money can be moved.</p></details><details><summary>Where are the content fragments?</summary><p>Home loads the published Barclays product card and its authored variations from AEM. Choose a variation above the product card. The original CTA fetcher and preview remain available separately for developer testing.</p><Link href="/fragments">Open content-fragment tools</Link></details><details><summary>Can I get help with my real account?</summary><p>This demo cannot provide account support. Use the official Barclays app or visit <a href="https://www.barclays.co.uk/help/" target="_blank" rel="noopener noreferrer">Barclays help</a>. Never enter personal banking details here.</p></details></section></div>}
 
