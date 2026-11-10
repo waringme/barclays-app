@@ -22,7 +22,7 @@ function TemplateImage({ url, persona }: { url: string; persona: DemoPersona }) 
     {status === 'loading' && <p className="product-loading" role="status">Loading personalized artwork for {persona.name}…</p>}
     {status === 'error' && <div className="product-error" role="alert">
       <h3>Personalized artwork is unavailable</h3>
-      <p>Scene7 could not load this template. Check that AGS487/cred-card is published and publicly accessible. No substitute image is shown.</p>
+      <p>Scene7 could not load this template. Check that AGS487/credit-offer is published and publicly accessible. No substitute image is shown.</p>
       <button className="primary-button" onClick={() => { setStatus('loading'); setAttempt(value => value + 1); }}>Retry artwork</button>
     </div>}
   </div>;
@@ -41,7 +41,7 @@ export function PersonaSelector({ persona, onPersonaChange }: { persona: DemoPer
 }
 
 export default function DynamicMediaCard({ persona }: { persona: DemoPersona }) {
-  const url = new URL('https://s7g10.scene7.com/is/template/AGS487/cred-card');
+  const url = new URL('https://s7g10.scene7.com/is/template/AGS487/credit-offer');
   for (const [name, value] of Object.entries({
     '$cta': persona.cta, '$firstname': persona.name,
     wid: '800', hei: '533', qlt: '80', fit: 'constrain', fmt: 'png-alpha',
