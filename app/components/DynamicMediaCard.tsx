@@ -46,6 +46,8 @@ export default function DynamicMediaCard({ persona }: { persona: DemoPersona }) 
     '$cta': persona.cta, '$firstname': persona.name,
     wid: '800', hei: '533', qlt: '80', fit: 'constrain', fmt: 'png-alpha',
   })) url.searchParams.set(name, value);
+  // Scene7 needs literal dollar-prefixed variable names and percent-encoded spaces.
+  url.search = url.search.replace(/%24(?=firstname=|cta=)/g, '$').replace(/\+/g, '%20');
 
   return <section className="dynamic-media-card surface" aria-labelledby="dynamic-media-title">
     <span className="section-kicker">LIVE DYNAMIC MEDIA · FICTIONAL PERSONAS</span>
