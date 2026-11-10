@@ -244,6 +244,13 @@ progress::-moz-progress-bar { background: #008cca; border-radius: 8px; }
 .in-app-concierge .concierge-frame { height: clamp(460px, calc(100dvh - 260px), 640px); min-height: 0; }
 .in-app-concierge .concierge-config { overflow-wrap: anywhere; }
 .product-card { overflow: hidden; margin-bottom: 24px; }
+.dynamic-media-card { margin-bottom: 24px; }
+.dynamic-media-card label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.dynamic-media-card select { width: 100%; min-height: 44px; padding: 10px; border: 1px solid #bfd8e7; border-radius: 8px; background: white; color: var(--bank-ink); font: inherit; font-size: 12px; }
+.dynamic-media-image { margin-top: 16px; }
+.dynamic-media-image[aria-busy="true"] { aspect-ratio: 800 / 533; }
+.dynamic-media-image img { display: block; width: 100%; height: auto; aspect-ratio: 800 / 533; border-radius: 9px; }
+.dynamic-media-image img[hidden] { display: none; }
 .product-variation-control { width: 100%; min-width: 0; color: var(--bank-ink); font-family: Arial, Helvetica, sans-serif; }
 .product-variation-control > p { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .product-variation-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 4px; }

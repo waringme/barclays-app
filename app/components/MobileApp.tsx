@@ -6,6 +6,7 @@ import Brand from './Brand';
 import Icon, { type IconName } from './Icon';
 import BrandConcierge from './BrandConcierge';
 import ProductCard, { ProductVariationSelector, useProductCard } from './ProductCard';
+import DynamicMediaCard, { demoPersonas, type DemoPersona } from './DynamicMediaCard';
 import type { BrandConciergeConfig } from '@/lib/brand-concierge';
 
 type View = 'Home' | 'Accounts' | 'Cards' | 'Help' | 'Concierge';
@@ -25,7 +26,7 @@ const transactions: { name: string; category: string; date: string; amount: numb
 ];
 const money = (value: number) => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(value);
 
-function DemoDialog({ panel, close }: { panel: Panel; close: () => void }) {
+function DemoDialog({ panel, close, persona }: { panel: Panel; close: () => void; persona: DemoPersona }) {
   const ref = useRef<HTMLDialogElement>(null);
   const [amount, setAmount] = useState('');
   const [review, setReview] = useState(false);
@@ -63,7 +64,7 @@ function DemoDialog({ panel, close }: { panel: Panel; close: () => void }) {
       ) : panel === 'notifications' ? (
         <><p>There are no new notifications in this demo.</p><div className="soft-notice"><Icon name="shield" /><span>Remember: never share your PIN, passcode or one-time security codes in a chat.</span></div></>
       ) : panel === 'profile' ? (
-        <><p><strong>Alex Morgan</strong> is a fictional demo customer. No login, identity check or bank connection is used.</p><p>Card controls and preferences reset when the page is reloaded. No personal banking data is stored.</p><Link className="text-button" href="/fragments">Open content-fragment developer tools <Icon name="arrow" /></Link></>
+        <><p><strong>{persona.name}</strong> is a fictional demo customer. No login, identity check or bank connection is used.</p><p>Card controls and preferences reset when the page is reloaded. No personal banking data is stored.</p><Link className="text-button" href="/fragments">Open content-fragment developer tools <Icon name="arrow" /></Link></>
       ) : (
         <><p>This space is ready for your Barclays content fragments. For now, explore general product information on the official Barclays website or ask Brand Concierge.</p><a className="primary-button" href="https://www.barclays.co.uk/savings/" target="_blank" rel="noopener noreferrer">Explore Barclays savings <Icon name="arrow" /></a><p className="demo-note">Opens the official website. No product application is available in this demo.</p></>
       )}
@@ -85,6 +86,7 @@ function TransactionList({ query = '', limit = transactions.length, hidden = fal
 
 export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { conciergeConfig: BrandConciergeConfig; initialView?: 'Home' | 'Concierge' }) {
   const [view, setView] = useState<View>(initialView);
+  const [persona, setPersona] = useState<DemoPersona>(demoPersonas[0]);
   const [hidden, setHidden] = useState(false);
   const [frozen, setFrozen] = useState(false);
   const [panel, setPanel] = useState<Panel | null>(null);
@@ -107,14 +109,15 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
       <div className="bank-workspace" ref={workspaceRef}>
         <header className="bank-topbar">
           <div className="mobile-brand"><Brand /></div>
-          <div className="topbar-actions"><span className="demo-badge"><span />Demo App</span><button className="icon-button notification-button" aria-label="View notifications" onClick={() => setPanel('notifications')}><Icon name="bell" /></button><button className="avatar topbar-avatar" aria-label="Open demo profile" onClick={() => setPanel('profile')}>AM</button></div>
+          <div className="topbar-actions"><span className="demo-badge"><span />Demo App</span><button className="icon-button notification-button" aria-label="View notifications" onClick={() => setPanel('notifications')}><Icon name="bell" /></button><button className="avatar topbar-avatar" aria-label="Open demo profile" onClick={() => setPanel('profile')}>{persona.name[0]}</button></div>
         </header>
         <div className="demo-strip"><Icon name="shield" /><p>A little look at what’s possible. <span>All accounts, balances and activity are fictional. No real banking.</span></p></div>
         <main className="bank-main" id="bank-content">
-          <div className="greeting-row"><div><p className="greeting-kicker"><Icon name="sun" />YOUR MONEY. YOUR POSSIBILITIES.</p><h1 ref={headingRef} tabIndex={-1}>{view === 'Home' ? 'Hello, Alex' : view === 'Accounts' ? 'Your accounts' : view === 'Cards' ? 'Your cards' : view === 'Concierge' ? 'Brand Concierge' : 'Here to help'}</h1><p className="greeting-subtitle">{view === 'Home' ? 'Let’s make your everyday a little easier.' : view === 'Accounts' ? 'Everything in one place. All figures are demo data.' : view === 'Cards' ? 'A little more control, right at your fingertips.' : view === 'Concierge' ? 'Your Barclays product questions, powered by Adobe.' : 'Find a helpful answer, your way.'}</p></div>{(view === 'Home' || view === 'Accounts') && <button className="balance-toggle" onClick={() => setHidden(!hidden)} aria-pressed={hidden}><Icon name="eye" />{hidden ? 'Show balances' : 'Hide balances'}</button>}</div>
+          <div className="greeting-row"><div><p className="greeting-kicker"><Icon name="sun" />YOUR MONEY. YOUR POSSIBILITIES.</p><h1 ref={headingRef} tabIndex={-1}>{view === 'Home' ? `Hello, ${persona.name}` : view === 'Accounts' ? 'Your accounts' : view === 'Cards' ? 'Your cards' : view === 'Concierge' ? 'Brand Concierge' : 'Here to help'}</h1><p className="greeting-subtitle">{view === 'Home' ? 'Let’s make your everyday a little easier.' : view === 'Accounts' ? 'Everything in one place. All figures are demo data.' : view === 'Cards' ? 'A little more control, right at your fingertips.' : view === 'Concierge' ? 'Your Barclays product questions, powered by Adobe.' : 'Find a helpful answer, your way.'}</p></div>{(view === 'Home' || view === 'Accounts') && <button className="balance-toggle" onClick={() => setHidden(!hidden)} aria-pressed={hidden}><Icon name="eye" />{hidden ? 'Show balances' : 'Hide balances'}</button>}</div>
 
           {view === 'Home' && <button className="concierge-entry" onClick={() => navigate('Concierge')}><span className="round-icon sky"><Icon name="spark" /></span><span><strong>Ask Brand Concierge</strong><small>Explore Barclays products with Adobe AI</small></span><Icon name="chevron" /></button>}
 
+          {view === 'Home' && <DynamicMediaCard persona={persona} onPersonaChange={setPersona} />}
           {view === 'Home' && <ProductCard state={productCard} />}
 
           {(view === 'Home' || view === 'Accounts') && <>
@@ -156,7 +159,7 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
         </main>
       </div>
       <nav className="mobile-nav" aria-label="Mobile navigation">{navigation.map(item => <button key={item.name} onClick={() => navigate(item.name)} aria-current={view === item.name ? 'page' : undefined}><Icon name={item.icon} /><span>{item.name}</span></button>)}</nav>
-      {panel && <DemoDialog key={panel} panel={panel} close={() => setPanel(null)} />}
+      {panel && <DemoDialog key={panel} panel={panel} persona={persona} close={() => setPanel(null)} />}
       </div>
     </div>
   );

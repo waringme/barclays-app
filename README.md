@@ -47,6 +47,15 @@ No M&G/offline snapshot is substituted when Barclays content is unavailable.
 
 ## Banking interactions
 
+Home includes the live Scene7 template `https://s7g10.scene7.com/is/template/AGS487/cred-card`.
+The demo-persona selector pairs Tim / Treat yourself, Alex / Plan ahead and
+Sam / Explore more. It updates `$firstname` and `$cta` using URL parameters,
+along with the greeting and demo profile. The template retains `wid=800`,
+`hei=533`, `qlt=80`, `fit=constrain` and `fmt=png-alpha`. Persona selection
+persists across tabs until reload. Imagery loads directly from Scene7 with
+explicit loading, error and retry states; no static fallback is substituted.
+The supplied template must be published and publicly accessible in Dynamic Media.
+
 - Home and Accounts show three fictional accounts; balances can be hidden.
 - Pay someone and Move money open validated, review-only demo flows. They
   never submit a payment or change an account balance.
