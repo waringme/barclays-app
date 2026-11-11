@@ -64,8 +64,9 @@ The supplied template must be published and publicly accessible in Dynamic Media
 - Cards lets you freeze/unfreeze a fictional card, in page memory only.
 - Savings goals, spending breakdowns, notifications and Help provide useful
   illustrative detail. Reloading resets all demo state.
-- The banking experience uses a centred phone frame on desktop and fills the
-  available width on mobile, with an independently scrolling feed and persistent
+- The banking experience uses a centred 390px-wide phone frame capped at 780px
+  tall on desktop and fills the available width on mobile, shrinking to fit short
+  viewports, with an independently scrolling feed and persistent
   bottom navigation. A large red “this is a demo site” warning appears above the
   app and on the Brand Concierge page.
 
@@ -85,10 +86,12 @@ Official eagle and wordmark assets from the user-supplied branding reference
 are stored in `public/brand/`. The agent receives the eagle as inline SVG,
 as required by its configuration.
 
-Choose **Ask Brand Concierge** near the top of Home, or use the persistent
-**Concierge** tab. Consent and chat now open inside the same phone-style app;
-**`/brand-concierge`** also opens that in-app view directly. Switching to another
-tab or closing the concierge removes its iframe; returning requires consent again.
+Choose **Concierge** in the persistent bottom navigation to open the dedicated
+**`/brand-concierge`** page. Home no longer embeds or expands chat. The separate
+page keeps the bounded phone shell, consent and mobile-pill interface, with a
+**Back to app** action at the bottom. Chat fits the remaining screen height,
+while the consent message scrolls inside the phone. Leaving the page or closing
+the concierge removes its iframe; returning requires consent again.
 **No Adobe SDK scripts or requests
 load until the visitor chooses “Agree and open concierge”.** Continuing loads
 the upstream Web SDK (Alloy 2.35.1) and Adobe web agent in an isolated iframe.
