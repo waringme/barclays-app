@@ -59,9 +59,8 @@ export default function DynamicMediaCard({ persona }: { persona: DemoPersona }) 
   // Scene7 needs literal dollar-prefixed variable names and percent-encoded spaces.
   url.search = url.search.replace(/%24(?=firstname=|cta=)/g, '$').replace(/\+/g, '%20');
 
-  return <section className="dynamic-media-card surface" aria-labelledby="dynamic-media-title">
+  return <section className="dynamic-media-card surface" aria-label="Personalized Dynamic Media artwork">
     <span className="section-kicker">LIVE DYNAMIC MEDIA · FICTIONAL PERSONAS</span>
-    <h2 id="dynamic-media-title">A little more personal</h2>
     <TemplateImage key={url.href} url={url.href} persona={persona} />
   </section>;
 }

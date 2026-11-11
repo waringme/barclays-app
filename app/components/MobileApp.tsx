@@ -125,7 +125,7 @@ export default function MobileApp({ conciergeConfig, initialView = 'Home' }: { c
         <main className="bank-main" id="bank-content">
           <div className="greeting-row"><div><p className="greeting-kicker"><Icon name="sun" />YOUR MONEY. YOUR POSSIBILITIES.</p><h1 ref={headingRef} tabIndex={-1}>{view === 'Home' ? `Hello, ${persona.name}` : view === 'Accounts' ? 'Your accounts' : view === 'Cards' ? 'Your cards' : view === 'Concierge' ? 'Brand Concierge' : 'Here to help'}</h1><p className="greeting-subtitle">{view === 'Home' ? 'Let’s make your everyday a little easier.' : view === 'Accounts' ? 'Everything in one place. All figures are demo data.' : view === 'Cards' ? 'A little more control, right at your fingertips.' : view === 'Concierge' ? 'Your Barclays product questions, powered by Adobe.' : 'Find a helpful answer, your way.'}</p></div>{(view === 'Home' || view === 'Accounts') && <button className="balance-toggle" onClick={() => setHidden(!hidden)} aria-pressed={hidden}><Icon name="eye" />{hidden ? 'Show balances' : 'Hide balances'}</button>}</div>
 
-          {view === 'Home' && <DynamicMediaCard persona={persona} />}
+          {view === 'Accounts' && <DynamicMediaCard persona={persona} />}
           {view === 'Home' && <ProductCard state={productCard} />}
 
           {(view === 'Home' || view === 'Accounts') && <>
