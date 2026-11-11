@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export const demoPersonas = [
   { name: 'Tim', cta: 'Treat yourself' },
@@ -13,8 +13,18 @@ export type DemoPersona = typeof demoPersonas[number];
 function TemplateImage({ url, persona }: { url: string; persona: DemoPersona }) {
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
   const [attempt, setAttempt] = useState(0);
+  const imageRef = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const image = imageRef.current;
+    if (!image?.complete) return;
+    if (image.naturalWidth) setStatus('loaded');
+    else {
+      console.error('Unable to load Dynamic Media template', url);
+      setStatus('error');
+    }
+  }, [url, attempt]);
   return <div className="dynamic-media-image" aria-busy={status === 'loading'}>
-    {status !== 'error' && <img key={attempt} src={url} width={800} height={533}
+    {status !== 'error' && <img ref={imageRef} key={attempt} src={url} width={800} height={533}
       alt={`Personalized Barclays demo artwork for ${persona.name}: ${persona.cta}`}
       hidden={status === 'loading'}
       onLoad={() => setStatus('loaded')}
